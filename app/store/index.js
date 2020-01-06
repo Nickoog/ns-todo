@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import * as http from 'tns-core-modules/http'
 
 import * as todoTypes from './mutation-types'
 
@@ -15,7 +16,20 @@ const store = new Vuex.Store({
   },
   actions: {
     [todoTypes.ADD_TODO]({ commit }, todo) {
-      commit(todoTypes.ADD_TODO, todo)
+      http
+        .request({
+          url: 'http://10.0.2.2:3000/todos',
+          method: 'POST',
+          content: JSON.stringify(todo),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(res => {
+          const todo = res.content.toJSON()
+          commit(todoTypes.ADD_TODO, todo)
+        })
+        .catch(err => console.error(err))
     }
   },
   mutations: {
