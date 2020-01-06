@@ -12,7 +12,7 @@
     <ListView
       for="project in projects"
       class="list-group"
-      @itemTap="removeProject"
+      @itemTap="navigateToProject"
     >
       <v-template>
         <Label class="list-group-item" :text="project.name"></Label>
@@ -25,6 +25,7 @@
 import { mapState, mapActions, mapMutations } from 'vuex'
 import * as dialogs from 'tns-core-modules/ui/dialogs'
 import * as fromProject from '../store/modules/project/mutation-types'
+import TodoList from './TodoList'
 
 export default {
   created() {
@@ -35,6 +36,10 @@ export default {
       fromProject.ADD_PROJECT,
       fromProject.GET_PROJECTS
     ]),
+    navigateToProject(event) {
+      const selectedProject = event.item
+      this.$navigateTo(TodoList, { props: { selectedProject } })
+    },
     addProject() {
       prompt({
         title: 'New Project',

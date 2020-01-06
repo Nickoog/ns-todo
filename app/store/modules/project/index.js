@@ -1,4 +1,3 @@
-import * as http from 'tns-core-modules/http'
 import { getProjects, createProject } from '../../../api/Project'
 import {
   ADD_PROJECT,
@@ -14,7 +13,7 @@ const state = {
 const actions = {
   [ADD_PROJECT]({ commit }, projectName) {
     createProject(projectName).then(projects => {
-      commit(ADD_PROJECT, projects)
+      commit(ADD_PROJECT, projectName)
     })
   },
   [GET_PROJECTS]({ commit }) {

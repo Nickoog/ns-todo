@@ -1,26 +1,33 @@
 {
   "todos": [
     {
-      "id": 0,
-      "name": "Go to the gym"
+      "name": "Buy chicken",
+      "projectId": 1,
+      "id": 1
     },
     {
-      "id": 1,
-      "name": "Walk the dog"
+      "name": "push-ups",
+      "projectId": 2,
+      "id": 2
     },
     {
-      "id": 2,
-      "name": "Vuex Store"
-    },
-    {
-      "id": 4,
-      "name": "new Todo"
+      "name": "Learn nativescript",
+      "projectId": 3,
+      "id": 3
     }
   ],
   "projects": [
     {
       "name": "Groceries",
       "id": 1
+    },
+    {
+      "name": "Gym",
+      "id": 2
+    },
+    {
+      "name": "Work",
+      "id": 3
     }
   ]
 }

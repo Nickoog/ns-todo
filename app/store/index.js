@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import Todo from './Todo'
+import Todo from './modules/todo'
 import Project from './modules/project'
 
 Vue.use(Vuex)

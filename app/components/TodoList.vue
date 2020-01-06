@@ -1,6 +1,6 @@
 <template>
   <Page>
-    <ActionBar title="Welcome to NativeScript-Vue!">
+    <ActionBar :title="selectedProject.name">
       <ActionItem
         ios.systemIcon="4"
         ios.position="right"
@@ -9,7 +9,11 @@
         @tap="addTodo"
       />
     </ActionBar>
-    <ListView for="todo in todos" class="list-group" @itemTap="removeTodo">
+    <ListView
+      for="todo in todos"
+      class="list-group"
+      @itemTap="removeTodo($event)"
+    >
       <v-template>
         <Label class="list-group-item" :text="todo.name"></Label>
       </v-template>
@@ -18,14 +22,21 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import * as dialogs from 'tns-core-modules/ui/dialogs'
-import * as fromTodo from '../store/mutation-types'
+import * as fromTodo from '../store/modules/todo/mutation-types'
 
 export default {
+  props: ['selectedProject'],
+  created() {
+    this.GET_TODOS()
+  },
   methods: {
-    ...mapActions('Todo', [fromTodo.ADD_TODO]),
-    ...mapMutations('Todo', [fromTodo.REMOVE_TODO]),
+    ...mapActions('Todo', [
+      fromTodo.ADD_TODO,
+      fromTodo.GET_TODOS,
+      fromTodo.REMOVE_TODO
+    ]),
     addTodo() {
       prompt({
         title: 'New Task',
@@ -35,18 +46,20 @@ export default {
         defaultText: '',
         inputType: dialogs.inputType.text
       }).then(result => {
-        this.ADD_TODO({ id: 4, name: result.text })
+        this.ADD_TODO({ name: result.text, projectId: this.selectedProject.id })
       })
     },
     removeTodo(event) {
       const item = event.item
-
       this.REMOVE_TODO(item)
     }
   },
   computed: {
+    ...mapGetters({
+      getTodosByProjectId: 'Todo/getTodosByProjectId'
+    }),
     todos() {
-      return this.$store.state.todos
+      return this.getTodosByProjectId(this.selectedProject.id)
     }
   }
 }
