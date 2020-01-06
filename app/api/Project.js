@@ -2,7 +2,7 @@ import * as http from 'tns-core-modules/http'
 
 const BASE_URL = `http://10.0.2.2:3000/projects`
 
-export const getProject = () => {
+export const getProjects = () => {
   return http
     .request({
       url: BASE_URL,

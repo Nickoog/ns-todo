@@ -17,7 +17,11 @@ const actions = {
       commit(ADD_PROJECT, projects)
     })
   },
-  [GET_PROJECTS]({ commit }) {},
+  [GET_PROJECTS]({ commit }) {
+    getProjects()
+      .then(projects => commit(SET_PROJECTS, projects))
+      .catch(err => console.error(err))
+  },
   [REMOVE_PROJECT]({ commit }, projectId) {}
 }
 

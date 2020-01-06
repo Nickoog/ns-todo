@@ -22,13 +22,19 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import * as dialogs from 'tns-core-modules/ui/dialogs'
 import * as fromProject from '../store/modules/project/mutation-types'
 
 export default {
+  created() {
+    this.GET_PROJECTS()
+  },
   methods: {
-    ...mapActions('Project', [fromProject.ADD_PROJECT]),
+    ...mapActions('Project', [
+      fromProject.ADD_PROJECT,
+      fromProject.GET_PROJECTS
+    ]),
     addProject() {
       prompt({
         title: 'New Project',
@@ -44,9 +50,9 @@ export default {
     removeProject() {}
   },
   computed: {
-    projects() {
-      return []
-    }
+    ...mapState({
+      projects: state => state.Project.projects
+    })
   }
 }
 </script>
