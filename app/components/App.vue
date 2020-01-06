@@ -9,7 +9,7 @@
         @tap="addTodo"
       />
     </ActionBar>
-    <ListView for="todo in todos" class="list-group">
+    <ListView for="todo in todos" class="list-group" @itemTap="removeTodo">
       <v-template>
         <Label class="list-group-item" :text="todo.name"></Label>
       </v-template>
@@ -19,6 +19,7 @@
 
 <script>
 import * as dialogs from 'tns-core-modules/ui/dialogs'
+import * as fromTodo from '../store/mutation-types'
 
 export default {
   methods: {
@@ -31,8 +32,13 @@ export default {
         defaultText: '',
         inputType: dialogs.inputType.text
       }).then(result => {
-        this.$store.commit('ADD_TODO', { id: 4, name: result.text })
+        this.$store.commit(fromTodo.ADD_TODO, { id: 4, name: result.text })
       })
+    },
+    removeTodo(event) {
+      const item = event.item
+
+      this.$store.commit(fromTodo.REMOVE_TODO, item)
     }
   },
   computed: {

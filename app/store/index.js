@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import * as todoTypes from './mutation-types'
+
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -12,8 +14,11 @@ const store = new Vuex.Store({
     ]
   },
   mutations: {
-    ADD_TODO(state, todo) {
+    [todoTypes.ADD_TODO](state, todo) {
       state.todos = [...state.todos, todo]
+    },
+    [todoTypes.REMOVE_TODO](state, selectedTodo) {
+      state.todos = state.todos.filter(todo => todo.id !== selectedTodo.id)
     }
   }
 })
