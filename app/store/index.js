@@ -13,6 +13,11 @@ const store = new Vuex.Store({
       { id: 2, name: 'Vuex Store' }
     ]
   },
+  actions: {
+    [todoTypes.ADD_TODO]({ commit }, todo) {
+      commit(todoTypes.ADD_TODO, todo)
+    }
+  },
   mutations: {
     [todoTypes.ADD_TODO](state, todo) {
       state.todos = [...state.todos, todo]

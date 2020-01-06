@@ -32,7 +32,7 @@ export default {
         defaultText: '',
         inputType: dialogs.inputType.text
       }).then(result => {
-        this.$store.commit(fromTodo.ADD_TODO, { id: 4, name: result.text })
+        this.$store.dispatch(fromTodo.ADD_TODO, { id: 4, name: result.text })
       })
     },
     removeTodo(event) {
