@@ -18,11 +18,14 @@
 </template>
 
 <script>
+import { mapActions, mapMutations } from 'vuex'
 import * as dialogs from 'tns-core-modules/ui/dialogs'
 import * as fromTodo from '../store/mutation-types'
 
 export default {
   methods: {
+    ...mapActions('Todo', [fromTodo.ADD_TODO]),
+    ...mapMutations('Todo', [fromTodo.REMOVE_TODO]),
     addTodo() {
       prompt({
         title: 'New Task',
@@ -32,13 +35,13 @@ export default {
         defaultText: '',
         inputType: dialogs.inputType.text
       }).then(result => {
-        this.$store.dispatch(fromTodo.ADD_TODO, { id: 4, name: result.text })
+        this.ADD_TODO({ id: 4, name: result.text })
       })
     },
     removeTodo(event) {
       const item = event.item
 
-      this.$store.commit(fromTodo.REMOVE_TODO, item)
+      this.REMOVE_TODO(item)
     }
   },
   computed: {
