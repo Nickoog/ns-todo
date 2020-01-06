@@ -11,6 +11,16 @@
     {
       "id": 2,
       "name": "Vuex Store"
+    },
+    {
+      "id": 4,
+      "name": "new Todo"
+    }
+  ],
+  "projects": [
+    {
+      "name": "new ",
+      "id": 1
     }
   ]
 }
